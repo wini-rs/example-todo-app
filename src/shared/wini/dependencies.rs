@@ -37,7 +37,7 @@ pub static SCRIPTS_DEPENDENCIES: LazyLock<HashMap<String, Option<Vec<String>>>> 
 /// # Example
 ///
 /// ```rs
-/// use PROJECT_NAME_TO_RESOLVE::shared::wini::dependencies::normalize_relative_path;
+/// use todo::shared::wini::dependencies::normalize_relative_path;
 /// use std::path::{Path, PathBuf};
 ///
 /// let path = Path::new("./folder/../file.txt");

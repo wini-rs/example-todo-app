@@ -27,8 +27,8 @@ pub async fn start() {
         .layer(
             MetaLayerBuilder::default()
                 .default_meta(HashMap::from_iter([
-                        ("title", "PROJECT_NAME_TO_RESOLVE".into()),
-                        ("description", "PROJECT_NAME_TO_RESOLVE".into()),
+                        ("title", "todo".into()),
+                        ("description", "todo".into()),
                         ("lang", "en".into()),
                 ]))
                 .build()

@@ -1,7 +1,7 @@
 # <https://doc.rust-lang.org/cargo/index.html>
 [package]
 edition = "2024"
-name = "PROJECT_NAME_TO_RESOLVE"
+name = "todo"
 version = "0.1.0"
 
 

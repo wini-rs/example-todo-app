@@ -1,4 +1,4 @@
-# PROJECT_NAME_TO_RESOLVE
+# todo
 
 *The following commands are compatible with `just`, so you can also use `just` instead of `wini`*
 

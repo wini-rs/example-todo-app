@@ -1,5 +1,5 @@
 use {
-    PROJECT_NAME_TO_RESOLVE::{
+    todo::{
         cron,
         server,
         shared::wini::{

@@ -1,4 +1,4 @@
-use PROJECT_NAME_TO_RESOLVE::shared::wini::dependencies::normalize_relative_path;
+use todo::shared::wini::dependencies::normalize_relative_path;
 
 #[test]
 fn in_out_in() {

@@ -1,7 +1,7 @@
 [origin]
-last_commit_hash = "HASH_TO_RESOLVE"
-remote_url = "URL_TO_RESOLVE"
-branch = "BRANCH_NAME_TO_RESOLVE"
+last_commit_hash = "ced48e863ba3f5c9edcb66846905635e52bb72f8"
+remote_url = "https://codeberg.org/wini/wini-template"
+branch = "nushell"
 name = "TEMPLATE_NAME_TO_RESOLVE"
 
 # All the paths are relatives to `./src` by default. At the exception of `modules`.
