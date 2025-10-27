@@ -38,6 +38,7 @@ pub enum ServerErrorKind {
     DebugedError(String),
     PublicRessourceNotFound(String),
     ToStrError(ToStrError),
+    Sqlx(sqlx::Error),
 }
 
 impl From<ServerErrorKind> for ServerError {
@@ -75,6 +76,7 @@ impl_from_error!(Utf8Error, ServerErrorKind::Utf8Error);
 impl_from_error!(String, ServerErrorKind::DebugedError);
 impl_from_error!(InvalidHeaderValue, ServerErrorKind::InvalidHeader);
 impl_from_error!(ToStrError, ServerErrorKind::ToStrError);
+impl_from_error!(sqlx::Error, ServerErrorKind::Sqlx);
 
 
 impl IntoResponse for &ServerErrorKind {
@@ -95,6 +97,9 @@ impl IntoResponse for &ServerErrorKind {
             },
             ServerErrorKind::Utf8Error(err) => {
                 format!("Error decoding buffer to UTF-8: {err:#?}")
+            },
+            ServerErrorKind::Sqlx(_err) => {
+                format!("Database error")
             },
             ServerErrorKind::PublicRessourceNotFound(path) => {
                 return (StatusCode::NOT_FOUND, format!("Couldn't find file: {path}"))

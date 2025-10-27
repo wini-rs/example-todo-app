@@ -1,8 +1,8 @@
 use {
     super::{
-        JS_FILES,
         err::ExitWithMessageIfErr,
-        tsconfig::{TSCONFIG_PATHS, TsConfigPathsPrefix},
+        tsconfig::{TsConfigPathsPrefix, TSCONFIG_PATHS},
+        JS_FILES,
     },
     crate::concat_paths,
     regex::Regex,
@@ -37,7 +37,7 @@ pub static SCRIPTS_DEPENDENCIES: LazyLock<HashMap<String, Option<Vec<String>>>> 
 /// # Example
 ///
 /// ```rs
-/// use todo::shared::wini::dependencies::normalize_relative_path;
+/// use wini_todo::shared::wini::dependencies::normalize_relative_path;
 /// use std::path::{Path, PathBuf};
 ///
 /// let path = Path::new("./folder/../file.txt");

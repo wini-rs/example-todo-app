@@ -25,6 +25,7 @@
                     git
                     iproute2
                     dart-sass
+                    # sqlx-cli
                     fd
                     ripgrep
                     (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default))
@@ -33,6 +34,8 @@
                     taplo
                     watchexec
                     nushell
+                    openssl
+                    pkg-config
                 ];
             };
         }

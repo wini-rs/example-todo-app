@@ -19,7 +19,7 @@
 ///
 /// ```
 /// use std::path::PathBuf;
-/// use todo::concat_paths;
+/// use wini_todo::concat_paths;
 ///
 /// // Concatenate multiple path segments
 /// let result = concat_paths!("./foo/", "./bar", "./baz/");

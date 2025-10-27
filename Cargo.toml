@@ -1,7 +1,7 @@
 # <https://doc.rust-lang.org/cargo/index.html>
 [package]
 edition = "2024"
-name = "todo"
+name = "wini-todo"
 version = "0.1.0"
 
 
@@ -9,7 +9,7 @@ version = "0.1.0"
 walkdir = "2.5.0"
 
 [dependencies]
-axum = { version = "0.8", features = ["macros"] }
+axum = { version = "0.8", features = ["form", "macros"] }
 cached = { version = "0.56", features = ["async_tokio_rt_multi_thread"] }
 colog = "1.4"
 ctor = "0.5"
@@ -22,29 +22,26 @@ log = "0.4"
 regex = "1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0"
+sqlx = { version = "0.8.3", features = ["postgres", "runtime-tokio", "tls-native-tls"] }
 strum = "0.27"
 strum_macros = "0.27"
 tokio = { version = "1", features = ["fs", "macros", "rt-multi-thread"] }
 toml = "0.9"
 tower = "0.5"
-tower-http = { version = "0.6", features = [
-  "compression-br",
-  "compression-gzip",
-  "fs",
-] }
+tower-http = { version = "0.6", features = ["compression-br", "compression-gzip", "fs"] }
 walkdir = "2.5"
 wini-macros = { path = "./macros/" }
 wini-maud = { version = "0.26.8", features = ["axum"] }
 
 
-[package.metadata.cargo-machete]
-ignored = [
-  # Used with the procedural macros #[page], #[component], #[layout]
-  "itertools",
-  "wini-maud",
-  # Used with the procedural macro #[cache]
-  "ctor",
-]
+  [package.metadata.cargo-machete]
+  ignored = [
+    # Used with the procedural macros #[page], #[component], #[layout]
+    "itertools",
+    "wini-maud",
+    # Used with the procedural macro #[cache]
+    "ctor",
+  ]
 
 # <https://rust-lang.github.io/rust-clippy/master>
 [lints.clippy]

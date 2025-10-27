@@ -1,20 +1,21 @@
 use {
-    todo::{
+    std::sync::LazyLock,
+    wini_todo::{
         cron,
+        db::DB,
         server,
         shared::wini::{
-            CSS_FILES,
-            ENV_TYPE,
-            JS_FILES,
-            PUBLIC_ENDPOINTS,
             components_files::COMPONENTS_FILES,
             config::SERVER_CONFIG,
             dependencies::SCRIPTS_DEPENDENCIES,
             packages_files::PACKAGES_FILES,
             tsconfig::TSCONFIG_PATHS,
+            CSS_FILES,
+            ENV_TYPE,
+            JS_FILES,
+            PUBLIC_ENDPOINTS,
         },
     },
-    std::sync::LazyLock,
 };
 
 
@@ -33,6 +34,7 @@ async fn main() {
     LazyLock::force(&SCRIPTS_DEPENDENCIES);
     LazyLock::force(&COMPONENTS_FILES);
     LazyLock::force(&SERVER_CONFIG);
+    LazyLock::force(&DB);
 
     // Verify that all the kind of data returned by the server (html, css, js, etc.) have their
     // cache rules being correctly setup

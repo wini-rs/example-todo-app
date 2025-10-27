@@ -2,17 +2,18 @@ use {
     crate::{
         layouts::header,
         pages,
-        shared::wini::{
-            layer::MetaLayerBuilder,
-            PORT,
-        },
+        shared::wini::{layer::MetaLayerBuilder, PORT},
         template,
         utils::wini::{
             cache,
             handling_file::{self},
         },
     },
-    axum::{middleware, routing::get, Router},
+    axum::{
+        middleware,
+        routing::{delete, get, post, put},
+        Router,
+    },
     log::info,
     std::collections::HashMap,
     tower_http::compression::CompressionLayer,
@@ -22,14 +23,13 @@ use {
 pub async fn start() {
     // The main router of the application is defined here
     let app = Router::<()>::new()
-        .route("/", get(pages::hello::render))
-        .layer(middleware::from_fn(header::render))
+        .route("/", get(pages::todo::render))
+        // .layer(middleware::from_fn(header::render))
         .layer(
             MetaLayerBuilder::default()
                 .default_meta(HashMap::from_iter([
-                        ("title", "todo".into()),
-                        ("description", "todo".into()),
-                        ("lang", "en".into()),
+                    ("title", "Wini todo".into()),
+                    ("description", "wini todo example".into()),
                 ]))
                 .build()
                 .expect("Failed to build MetaLayer"),
@@ -37,6 +37,12 @@ pub async fn start() {
         .layer(middleware::from_fn(template::template))
         .layer(middleware::from_fn(cache::html_middleware))
         .route("/{*wildcard}", get(handling_file::handle_file))
+        .route("/task/{id}/done", put(pages::todo::db::done))
+        .route(
+            "/task/{id}",
+            delete(pages::todo::db::delete).put(pages::todo::db::edit_name),
+        )
+        .route("/task", post(pages::todo::db::create))
         .layer(CompressionLayer::new());
 
 
