@@ -51,7 +51,7 @@ async fn render_task(task: Task) -> Markup {
             div {
                 input
                     type="checkbox"
-                    x-bind:checked="isDone ? true : false"
+                    x-bind:checked="isDone"
                     x-on:click="isDone = !isDone"
                     hx-put={"/task/"(task.id)"/done"};
                 span x-show="!isEditing" {
