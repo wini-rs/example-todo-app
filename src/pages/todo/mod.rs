@@ -2,7 +2,8 @@ pub mod db;
 
 use {
     crate::{db::DB, shared::wini::err::ServerResult},
-    maud::{html, Markup},
+    font_awesome_as_a_crate::{svg, Type},
+    maud::{html, Markup, PreEscaped},
     wini_macros::{component, page},
 };
 
@@ -21,7 +22,7 @@ pub async fn render() -> ServerResult<Markup> {
     Ok(html! {
         main .todo {
             h1 {
-                "TODO!"
+                "TODO: wini + htmx + alpine"
             }
             ul {
                 @for task in tasks {
@@ -31,10 +32,13 @@ pub async fn render() -> ServerResult<Markup> {
                 }
             }
             #create-bar {
-                input id="title" name="title" type="text";
-                button hx-post="/task" hx-include="previous input" hx-target="previous ul" hx-swap="beforeend" {
-                    "Create"
-                }
+                input name="title" type="text" placeholder="Create a new task...";
+                button.green
+                    hx-post="/task"
+                    hx-include="previous input"
+                    hx-target="previous ul"
+                    hx-swap="beforeend"
+                    { (icon("square-plus")) }
             }
         }
     })
@@ -43,40 +47,48 @@ pub async fn render() -> ServerResult<Markup> {
 #[component(js_pkgs=["htmx.org", "alpinejs"])]
 async fn render_task(task: Task) -> Markup {
     html! {
-        .task x-data={"{isEditting:false,isDone:"(task.is_done)"}"} x-bind:class="isDone && 'done'" {
+        .task x-data={"{isEditing:false,isDone:"(task.is_done)"}"} x-bind:class="isDone && 'done'" {
             div {
-                button
-                    x-text="isDone ? 'Mark as todo' : 'Mark as done'"
+                input
+                    type="checkbox"
+                    x-bind:checked="isDone ? true : false"
                     x-on:click="isDone = !isDone"
-                    hx-put={"/task/"(task.id)"/done"}
-                    {
-                        (if task.is_done {"Mark as todo"} else {"Mark as done"})
-                    }
-                span x-show="!isEditting" {
+                    hx-put={"/task/"(task.id)"/done"};
+                span x-show="!isEditing" {
                     (task.title)
                 }
-                input x-show="isEditting" value=(task.title) name="title";
+                input x-show="isEditing" value=(task.title) name="title" type="text";
             }
             div {
-                button
+                // When editing
+                button.green
                     hx-put={"/task/"(task.id)""}
                     hx-target="closest .task"
                     hx-include="previous input"
                     hx-swap="outerHTML"
-                    x-show="isEditting"
-                    {
-                        "Save"
-                    }
-                button
-                    x-on:click="isEditting = !isEditting"
-                    x-text="isEditting ? 'Cancel' : 'Edit'"
-                    {}
-                button
+                    x-show="isEditing"
+                    { (icon("check")) }
+                button.red
+                    x-on:click="isEditing = !isEditing"
+                    x-show="isEditing"
+                    { (icon("rotate-left")) }
+
+                // When not editing
+                button.blue
+                    x-on:click="isEditing = !isEditing"
+                    x-show="!isEditing"
+                    { (icon("pen")) }
+                button.red
                     hx-delete={"/task/"(task.id)}
-                    hx-target="closest .task"
-                    x-show="!isEditting"
-                    { "Delete" }
+                    hx-target="closest li"
+                    hx-swap="outerHTML"
+                    x-show="!isEditing"
+                    { (icon("trash")) }
             }
         }
     }
+}
+
+fn icon(name: &'static str) -> PreEscaped<&'static str> {
+    PreEscaped(svg(Type::Solid, name).unwrap())
 }

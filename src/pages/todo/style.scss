@@ -1,19 +1,53 @@
+$bg: #222;
+
+svg {
+    fill: #fff;
+    aspect-ratio: 1/1;
+    max-height: 70%;
+}
+
 .todo {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding-inline: 20vw;
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+
+    h1 {
+        font-weight: 600;
+    }
+
+    input[type='text'] {
+        width: 100%;
+        background-color: #fff1;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding-block: 6px;
+        padding-inline: 12px;
+    }
+
 
     ul {
+        display: flex;
+        flex-direction: column;
         list-style: none;
         width: 100%;
         margin: 0;
         padding: 0;
+        gap: 4px;
 
         li {
+            span {
+                display: flex;
+                align-items: center;
+
+            }
 
             .task {
+                height: 32px;
                 display: flex;
                 justify-content: space-between;
 
@@ -27,6 +61,8 @@
                 }
             }
         }
+
+        margin-bottom: 16px;
     }
 
     #create-bar {
@@ -35,8 +71,46 @@
         width: 100%;
         gap: 8px;
 
-        input {
-            width: 100%;
+        input[type='text'] {
+            font-size: 18px;
+            padding-block: 8px;
+            padding-inline: 16px;
+        }
+
+        button {
+            aspect-ratio: 1/1;
+            height: 42px;
+            width: 42px;
+
+            svg {
+                scale: 0.7;
+            }
+        }
+    }
+
+    button {
+        color: white;
+        border: none;
+        transition: .3s;
+        border-radius: 8px;
+        cursor: pointer;
+        min-width: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            filter: brightness(1.1);
+        }
+
+        &.green {
+            background-color: #6A7;
+        }
+        &.red {
+            background-color: #A67;
+        }
+        &.blue {
+            background-color: #67A;
         }
     }
 }

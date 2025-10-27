@@ -1,6 +1,5 @@
 use {
     crate::{
-        layouts::header,
         pages,
         shared::wini::{layer::MetaLayerBuilder, PORT},
         template,
@@ -24,7 +23,6 @@ pub async fn start() {
     // The main router of the application is defined here
     let app = Router::<()>::new()
         .route("/", get(pages::todo::render))
-        // .layer(middleware::from_fn(header::render))
         .layer(
             MetaLayerBuilder::default()
                 .default_meta(HashMap::from_iter([
